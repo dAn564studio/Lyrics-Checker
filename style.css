@@ -21,19 +21,13 @@ body {
 }
 
 .logo-icon {
-    font-size: 28px;
+    font-size: 40px;
     color: #fbbc04;
 }
 
 .app-header h1 {
     font-size: 20px;
     color: #5f6368;
-    font-weight: 500;
-}
-
-.app-header h2 {
-    font-size: 13px;
-    color: #e95038;
     font-weight: 500;
 }
 

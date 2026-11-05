@@ -22,24 +22,24 @@ deleteBtn.addEventListener('click', deleteNote);
 
 // 色変更処理
 document.querySelectorAll('.color-btn').forEach(btn => {
+    // マウスを押した時にテキストの選択状態が外れるのを防ぐ
+    btn.addEventListener('mousedown', (e) => e.preventDefault());
+
     btn.addEventListener('click', (e) => {
         const color = e.target.getAttribute('data-color');
+        lyricsEditor.focus();
         document.execCommand('foreColor', false, color);
     });
 });
 
-document.getElementById('customColorPicker').addEventListener('change', (e) => {
-    document.execCommand('foreColor', false, e.target.value);
-});
-
-document.getElementById('resetColorBtn').addEventListener('click', () => {
-    document.execCommand('removeFormat', false, null);
-});
-
 // 記号挿入処理
 document.querySelectorAll('.symbol-btn').forEach(btn => {
+    // マウスを押した時にカーソル位置が消えるのを防ぐ
+    btn.addEventListener('mousedown', (e) => e.preventDefault());
+
     btn.addEventListener('click', (e) => {
         const symbol = e.target.getAttribute('data-symbol');
+        lyricsEditor.focus();
         document.execCommand('insertText', false, symbol);
     });
 });
