@@ -20,16 +20,77 @@ cancelBtn.addEventListener('click', closeModal);
 saveBtn.addEventListener('click', saveNote);
 deleteBtn.addEventListener('click', deleteNote);
 
-// 色変更処理
+// モード状態の管理
+let currentMode = 'pen'; // 'pen' または 'marker'
+
+const penModeBtn = document.getElementById('penModeBtn');
+const markerModeBtn = document.getElementById('markerModeBtn');
+const colorPalette = document.querySelector('.color-palette');
+
+// モード切り替え時にパレットボタンの見た目（濃い色/薄い色）を自動変更する関数
+function updateColorPaletteUI() {
+    document.querySelectorAll('.color-btn').forEach(btn => {
+        const penColor = btn.getAttribute('data-color');
+        const markerColor = btn.getAttribute('data-marker-color') || penColor;
+        
+        btn.style.background = (currentMode === 'marker') ? markerColor : penColor;
+    });
+}
+
+// モード切り替え処理
+penModeBtn.addEventListener('mousedown', (e) => e.preventDefault());
+markerModeBtn.addEventListener('mousedown', (e) => e.preventDefault());
+
+penModeBtn.addEventListener('click', () => {
+    currentMode = 'pen';
+    penModeBtn.classList.add('active');
+    markerModeBtn.classList.remove('active');
+    colorPalette.classList.remove('marker-mode'); // 丸に戻す
+    updateColorPaletteUI();
+});
+
+markerModeBtn.addEventListener('click', () => {
+    currentMode = 'marker';
+    markerModeBtn.classList.add('active');
+    penModeBtn.classList.remove('active');
+    colorPalette.classList.add('marker-mode'); // 平行四辺形にする
+    updateColorPaletteUI();
+});
+
+// 色変更処理（ペン用/マーカー用の色を自動で判定）
 document.querySelectorAll('.color-btn').forEach(btn => {
-    // マウスを押した時にテキストの選択状態が外れるのを防ぐ
     btn.addEventListener('mousedown', (e) => e.preventDefault());
 
     btn.addEventListener('click', (e) => {
-        const color = e.target.getAttribute('data-color');
         lyricsEditor.focus();
-        document.execCommand('foreColor', false, color);
+
+        if (currentMode === 'pen') {
+            // 文字色（濃い色）を適用
+            const color = btn.getAttribute('data-color');
+            document.execCommand('foreColor', false, color);
+        } else {
+            // 背景色（薄いマーカー色）を適用
+            const color = btn.getAttribute('data-marker-color') || btn.getAttribute('data-color');
+            if (!document.execCommand('hiliteColor', false, color)) {
+                document.execCommand('backColor', false, color);
+            }
+        }
     });
+});
+
+// 消しゴムボタンの取得とイベント設定
+const eraserBtn = document.getElementById('eraserBtn');
+
+eraserBtn.addEventListener('mousedown', (e) => e.preventDefault());
+eraserBtn.addEventListener('click', () => {
+    lyricsEditor.focus();
+
+    // 選択範囲または現在のカーソル位置の文字色・背景色リセット
+    document.execCommand('removeFormat', false, null);
+    document.execCommand('foreColor', false, '#202124'); // 基本文字色に戻す
+    if (!document.execCommand('hiliteColor', false, 'transparent')) {
+        document.execCommand('backColor', false, 'transparent'); // マーカー色を透明に戻す
+    }
 });
 
 // 記号挿入処理

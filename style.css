@@ -195,6 +195,49 @@ body {
     background: #f8f9fa;
 }
 
+/* 追加：モード切り替え領域 */
+.mode-selector {
+    display: flex;
+    gap: 4px;
+    border-right: 1px solid #dadce0;
+    padding-right: 8px;
+    margin-right: 4px;
+}
+
+.mode-btn {
+    background: transparent;
+    border: none;
+    padding: 4px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #5f6368;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mode-btn.active {
+    background: #e8f0fe;
+    color: #1a73e8;
+}
+
+/* 色ボタンの基本デザイン（アニメーション対応） */
+.color-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%; /* 基本は丸 */
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, border-radius 0.2s ease; /* 形の変化をなめらかに */
+}
+
+/* 追加：マーカーモード時の色ボタン（平行四辺形） */
+.color-palette.marker-mode .color-btn {
+    border-radius: 2px;
+    transform: skewX(-15deg); /* 斜めに傾けて平行四辺形にする */
+}
+
 /* 歌詞編集エリア */
 .lyrics-editor {
     flex: 1;
