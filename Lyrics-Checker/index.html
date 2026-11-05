@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>＊開発中＊歌詞帳 - Keep Style</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts & Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header class="app-header">
+        <span class="material-icons-outlined logo-icon">queue_music</span>
+        <h1>歌詞帳</h1>
+    
+        <h2>*注意　本サイトは構築中なため様々な機能が不足しています。*</h2>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="container">
+        <!-- 新規作成トリガー -->
+        <div class="create-trigger-card" id="openCreateModal">
+            <span class="material-icons-outlined">add</span>
+            <span>新しい歌詞帳を作成...</span>
+        </div>
+
+        <!-- 歌詞帳カード一覧 -->
+        <div class="notes-grid" id="notesGrid"></div>
+    </main>
+
+    <!-- 歌詞編集モーダル -->
+    <div class="modal-overlay" id="editorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="text" id="songTitle" class="title-input" placeholder="曲名を入力...">
+                <input type="text" id="songArtist" class="artist-input" placeholder="アーティスト名...">
+            </div>
+
+            <!-- 編集ツールバー -->
+            <div class="toolbar">
+                <div class="color-palette">
+                    <button class="color-btn" style="background: #ef4444;" data-color="#ef4444" title="地声高音（赤）"></button>
+                    <button class="color-btn" style="background: #3b82f6;" data-color="#3b82f6" title="裏声（青）"></button>
+                    <button class="color-btn" style="background: #10b981;" data-color="#10b981" title="ウィスパー（緑）"></button>
+                    <button class="color-btn" style="background: #f59e0b;" data-color="#f59e0b" title="アクセント（黄）"></button>
+                    <button class="color-btn" style="background: #8b5cf6;" data-color="#8b5cf6" title="フォール・エッジ（紫）"></button>
+                    <input type="color" id="customColorPicker" title="好きな色を選択">
+                    <button class="text-btn" id="resetColorBtn" title="色を解除">文字色解除</button>
+                </div>
+                <div class="symbol-tools">
+                    <button class="symbol-btn" data-symbol=" v ">v (ブレス)</button>
+                    <button class="symbol-btn" data-symbol=" | ">| (区切り)</button>
+                    <button class="symbol-btn" data-symbol=" ～ ">～ (伸ばし)</button>
+                </div>
+            </div>
+
+            <!-- 歌詞編集エリア（装飾が可能なコンテンツエリア） -->
+            <div id="lyricsEditor" class="lyrics-editor" contenteditable="true" placeholder="ここに歌詞を貼り付けて選択し、色つけや記号挿入をしてください..."></div>
+
+            <!-- モーダルアクション -->
+            <div class="modal-actions">
+                <button id="deleteBtn" class="btn btn-danger" style="display:none;">削除</button>
+                <div class="right-actions">
+                    <button id="cancelBtn" class="btn btn-secondary">キャンセル</button>
+                    <button id="saveBtn" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
