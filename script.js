@@ -85,8 +85,7 @@ eraserBtn.addEventListener('mousedown', (e) => e.preventDefault());
 eraserBtn.addEventListener('click', () => {
     lyricsEditor.focus();
 
-    // 選択範囲または現在のカーソル位置の文字色・背景色リセット
-    document.execCommand('removeFormat', false, null);
+    // ★ removeFormatの行を削除し、色のリセットのみを残す
     document.execCommand('foreColor', false, '#202124'); // 基本文字色に戻す
     if (!document.execCommand('hiliteColor', false, 'transparent')) {
         document.execCommand('backColor', false, 'transparent'); // マーカー色を透明に戻す
@@ -234,3 +233,33 @@ function escapeHtml(str) {
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
     })[m]);
 }
+
+// ＝追加：文字入力時の装飾引き継ぎ防止＝
+function resetTextFormat() {
+    const selection = window.getSelection();
+    // 範囲選択しておらず、カーソルが置かれているだけの状態かチェック
+    if (selection.rangeCount > 0 && selection.getRangeAt(0).collapsed) {
+        document.execCommand('removeFormat', false, null); // 念のためフォーマットを解除
+        document.execCommand('foreColor', false, '#202124'); // 基本文字色を強制
+        
+        // 【修正】透明(transparent)だと親のマーカーが透けるため、背景と同じ「白」で上書きして断ち切る
+        if (!document.execCommand('hiliteColor', false, '#ffffff')) {
+            document.execCommand('backColor', false, '#ffffff'); 
+        }
+    }
+}
+
+// ① 日本語入力（IME）が開始された瞬間にリセット
+lyricsEditor.addEventListener('compositionstart', resetTextFormat);
+
+// ② 半角英数やEnterキーなど、直接入力された瞬間にリセット
+lyricsEditor.addEventListener('keydown', (e) => {
+    // カーソル移動やBackSpaceなど、文字入力以外の操作ではリセット処理を無視する
+    const ignoreKeys = [
+        'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 
+        'Shift', 'Control', 'Alt', 'Meta', 'Backspace', 'Delete', 'Escape'
+    ];
+    if (ignoreKeys.includes(e.key)) return;
+
+    resetTextFormat();
+});

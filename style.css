@@ -262,32 +262,18 @@ body {
 /* =======================================
    文字サイズ装飾（インライン方式）
 ======================================= */
-/* 
-  行の途中で使う小さい文字
-  ※ font[size="1"] は文字入力中の未変換状態をカバーするためのものです
-*/
+/* 小さい文字（半改行） */
 .small-text, font[size="1"] {
-    font-size: 10px; /* 9pxは見えづらい場合があるため微調整 */
-    line-height: 1.2;
-    /* 以前の .half-line のように少し上に浮かせたい場合は以下を有効にしてください */
-    /* vertical-align: text-top; */
+    font-size: 12px;
+    line-height: 0;
+    display: inline-block; /* ←追加：タグが重なった際の高さの暴走を防ぐ */
+    vertical-align: text-top; /* 上の基準線に合わせる */
 }
 
+/* 通常サイズの文字 */
 .normal-text, font[size="3"] {
     font-size: 16px;
     line-height: 1.8;
-}
-
-/* 行の途中で使う小さい文字 */
-.small-text {
-    font-size: 9px;
-    line-height: 1.2;
-}
-
-/* 半改行の途中で使う通常サイズの文字 */
-.normal-text {
-    font-size: 16px;
-    line-height: 1.4;
 }
 
 .lyrics-editor:empty:before {
