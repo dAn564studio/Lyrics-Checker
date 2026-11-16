@@ -259,11 +259,23 @@ body {
     min-height: 1.8em;
 }
 
-/* 半改行の行（高さも文字サイズも通常の約半分） */
-.half-line {
-    font-size: 9px;
-    line-height: 1.6;
-    min-height: 1.6em;
+/* =======================================
+   文字サイズ装飾（インライン方式）
+======================================= */
+/* 
+  行の途中で使う小さい文字
+  ※ font[size="1"] は文字入力中の未変換状態をカバーするためのものです
+*/
+.small-text, font[size="1"] {
+    font-size: 10px; /* 9pxは見えづらい場合があるため微調整 */
+    line-height: 1.2;
+    /* 以前の .half-line のように少し上に浮かせたい場合は以下を有効にしてください */
+    /* vertical-align: text-top; */
+}
+
+.normal-text, font[size="3"] {
+    font-size: 16px;
+    line-height: 1.8;
 }
 
 /* 行の途中で使う小さい文字 */
