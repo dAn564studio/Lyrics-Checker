@@ -341,13 +341,18 @@ body.modal-open {
         position: relative; /* ツールバーを浮かせる基準にする */
     }
 
+    /* ★追加：右上に配置するボタンと曲名入力欄が重ならないようにスペースを空ける */
+    .modal-header {
+        padding-right: 60px;
+    }
+
     .toolbar {
         position: absolute;
-        bottom: 70px; /* 保存ボタン類の上に浮かせる */
+        top: 20px; /* ★ bottomからtopに変更し、画面上部に配置 */
         right: 20px;
         margin: 0;
         display: flex;
-        flex-direction: column-reverse; /* ボタンが下、メニューが上に出るように */
+        flex-direction: column; /* ★ column-reverseからcolumnに変更（ボタンが上、メニューが下） */
         align-items: flex-end;
         z-index: 100;
         pointer-events: none; /* 透明な部分はクリックを背後に貫通させる */
@@ -388,17 +393,18 @@ body.modal-open {
         padding: 16px;
         border-radius: 12px;
         box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-        margin-bottom: 12px;
+        margin-top: 12px; /* ★ メニューが下に出るので、margin-bottomをmargin-topに変更 */
     }
 
     /* ボタンが押されて open クラスがついたら表示 */
     .toolbar.open .toolbar-content {
         display: flex;
-        animation: popUp 0.2s ease-out;
+        animation: popDown 0.2s ease-out; /* ★ アニメーション名を変更 */
     }
 
-    @keyframes popUp {
-        from { opacity: 0; transform: translateY(10px) scale(0.95); }
+    /* ★ アニメーションを「下から」ではなく「上から降りてくる」ように変更 */
+    @keyframes popDown {
+        from { opacity: 0; transform: translateY(-10px) scale(0.95); }
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
