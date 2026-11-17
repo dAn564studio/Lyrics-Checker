@@ -38,34 +38,42 @@
             </div>
 
             <!-- 編集ツールバー -->
-            <div class="toolbar">
-                <div class="mode-selector">
-                    <button id="penModeBtn" class="mode-btn active" title="文字色（ペン）">
-                        <span class="material-icons-outlined">edit</span>
-                    </button>
-                    <button id="markerModeBtn" class="mode-btn" title="背景色（マーカー）">
-                        <span class="material-icons-outlined">border_color</span>
-                    </button>
-                    <button id="eraserBtn" class="mode-btn" title="装飾解除（消しゴム）">
-                        <span class="material-icons-outlined">cleaning_services</span>
-                    </button>
-                    <button id="largeTextBtn" class="mode-btn active" title="通常サイズ">大</button>
-                    <button id="smallTextBtn" class="mode-btn" title="小文字/半改行">小</button>
-                </div>
-
-                <div class="color-palette">
-                    <button class="color-btn" style="background: #ef4444;" data-color="#ef4444" data-marker-color="#fca5a5" title="地声高音（赤）"></button>
-                    <button class="color-btn" style="background: #3b82f6;" data-color="#3b82f6" data-marker-color="#93c5fd" title="裏声（青）"></button>
-                    <button class="color-btn" style="background: #10b981;" data-color="#10b981" data-marker-color="#6ee7b7" title="ウィスパー（緑）"></button>
-                    <button class="color-btn" style="background: #f59e0b;" data-color="#f59e0b" data-marker-color="#fde047" title="アクセント（黄）"></button>
-                    <button class="color-btn" style="background: #8b5cf6;" data-color="#8b5cf6" data-marker-color="#c4b5fd" title="フォール・エッジ（紫）"></button>
-                    <button class="color-btn" style="background: #0e0e0f;" data-color="#0e0e0f" data-marker-color="#cbd5e1" title="黒/グレー"></button>
-                </div>
+            <div class="toolbar" id="editToolbar">
+                <!-- ★追加：スマホ用折りたたみボタン -->
+                <button id="toolbarToggleBtn" class="toolbar-toggle-btn" title="ツールを開閉">
+                    <span class="material-icons-outlined">palette</span>
+                </button>
                 
-                <div class="symbol-tools">
-                    <button class="symbol-btn" data-symbol=" v ">v (ブレス)</button>
-                    <button class="symbol-btn" data-symbol=" | ">| (区切り)</button>
-                    <button class="symbol-btn" data-symbol=" ～ ">～ (伸ばし)</button>
+                <!-- ★追加：既存のツール群をこの div で包む -->
+                <div class="toolbar-content">
+                    <div class="mode-selector">
+                        <button id="penModeBtn" class="mode-btn active" title="文字色（ペン）">
+                            <span class="material-icons-outlined">edit</span>
+                        </button>
+                        <button id="markerModeBtn" class="mode-btn" title="背景色（マーカー）">
+                            <span class="material-icons-outlined">border_color</span>
+                        </button>
+                        <button id="eraserBtn" class="mode-btn" title="装飾解除（消しゴム）">
+                            <span class="material-icons-outlined">cleaning_services</span>
+                        </button>
+                        <button id="largeTextBtn" class="mode-btn active" title="通常サイズ">大</button>
+                        <button id="smallTextBtn" class="mode-btn" title="小文字/半改行">小</button>
+                    </div>
+
+                    <div class="color-palette">
+                        <button class="color-btn" style="background: #ef4444;" data-color="#ef4444" data-marker-color="#fca5a5"></button>
+                        <button class="color-btn" style="background: #3b82f6;" data-color="#3b82f6" data-marker-color="#93c5fd"></button>
+                        <button class="color-btn" style="background: #10b981;" data-color="#10b981" data-marker-color="#6ee7b7"></button>
+                        <button class="color-btn" style="background: #f59e0b;" data-color="#f59e0b" data-marker-color="#fde047"></button>
+                        <button class="color-btn" style="background: #8b5cf6;" data-color="#8b5cf6" data-marker-color="#c4b5fd"></button>
+                        <button class="color-btn" style="background: #0e0e0f;" data-color="#0e0e0f" data-marker-color="#cbd5e1"></button>
+                    </div>
+                    
+                    <div class="symbol-tools">
+                        <button class="symbol-btn" data-symbol=" v ">v (ブレス)</button>
+                        <button class="symbol-btn" data-symbol=" | ">| (区切り)</button>
+                        <button class="symbol-btn" data-symbol=" ～ ">～ (伸ばし)</button>
+                    </div>
                 </div>
             </div>
 

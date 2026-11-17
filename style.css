@@ -158,13 +158,20 @@ body {
 
 /* ツールバー */
 .toolbar {
+    margin-bottom: 16px;
+}
+
+.toolbar-toggle-btn {
+    display: none; /* PCでは非表示 */
+}
+
+.toolbar-content {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     padding: 8px;
     background: #f1f3f4;
     border-radius: 6px;
-    margin-bottom: 16px;
     align-items: center;
 }
 
@@ -324,4 +331,83 @@ body {
 ======================================= */
 body.modal-open {
     overflow: hidden;
+}
+
+/* =======================================
+   スマホ向け：フローティング＆折りたたみツールバー
+======================================= */
+@media (max-width: 768px) {
+    .modal-content {
+        position: relative; /* ツールバーを浮かせる基準にする */
+    }
+
+    .toolbar {
+        position: absolute;
+        bottom: 70px; /* 保存ボタン類の上に浮かせる */
+        right: 20px;
+        margin: 0;
+        display: flex;
+        flex-direction: column-reverse; /* ボタンが下、メニューが上に出るように */
+        align-items: flex-end;
+        z-index: 100;
+        pointer-events: none; /* 透明な部分はクリックを背後に貫通させる */
+    }
+
+    .toolbar > * {
+        pointer-events: auto; /* ボタンやパレットはクリック可能にする */
+    }
+
+    .toolbar-toggle-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #1a73e8;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    /* 展開中のボタン（×印っぽく回転させる） */
+    .toolbar.open .toolbar-toggle-btn {
+        background: #5f6368;
+        transform: rotate(45deg); 
+    }
+
+    /* パレットの中身を折りたたむ */
+    .toolbar-content {
+        display: none; /* 初期状態は隠す */
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+        background: #ffffff;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        margin-bottom: 12px;
+    }
+
+    /* ボタンが押されて open クラスがついたら表示 */
+    .toolbar.open .toolbar-content {
+        display: flex;
+        animation: popUp 0.2s ease-out;
+    }
+
+    @keyframes popUp {
+        from { opacity: 0; transform: translateY(10px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* パレット内の要素を縦に並べる調整 */
+    .mode-selector {
+        border-right: none;
+        border-bottom: 1px solid #dadce0;
+        padding-right: 0;
+        padding-bottom: 8px;
+        margin-right: 0;
+    }
 }

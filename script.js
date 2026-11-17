@@ -75,6 +75,7 @@ document.querySelectorAll('.color-btn').forEach(btn => {
                 document.execCommand('backColor', false, color);
             }
         }
+        closeToolbarOnMobile();
     });
 });
 
@@ -90,6 +91,7 @@ eraserBtn.addEventListener('click', () => {
     if (!document.execCommand('hiliteColor', false, 'transparent')) {
         document.execCommand('backColor', false, 'transparent'); // マーカー色を透明に戻す
     }
+    closeToolbarOnMobile();
 });
 
 // 記号挿入処理
@@ -101,6 +103,7 @@ document.querySelectorAll('.symbol-btn').forEach(btn => {
         const symbol = e.target.getAttribute('data-symbol');
         lyricsEditor.focus();
         document.execCommand('insertText', false, symbol);
+        closeToolbarOnMobile();
     });
 });
 
@@ -138,6 +141,7 @@ function handleSizeChange(setToSmall) {
     if (selection.rangeCount > 0 && !selection.getRangeAt(0).collapsed) {
         formatFontTags();
     }
+    closeToolbarOnMobile();
 }
 
 // execCommandで作られたタグをクラスに置き換える（または剥がす）クリーンアップ処理
@@ -269,3 +273,22 @@ lyricsEditor.addEventListener('keydown', (e) => {
 
     resetTextFormat();
 });
+
+// ==========================================
+// スマホ用：ツールバーのフローティング開閉制御
+// ==========================================
+const editToolbar = document.getElementById('editToolbar');
+const toolbarToggleBtn = document.getElementById('toolbarToggleBtn');
+
+// トグルボタンのクリック（mousedownで入力カーソルが消えるのを防ぐ）
+toolbarToggleBtn.addEventListener('mousedown', (e) => e.preventDefault());
+toolbarToggleBtn.addEventListener('click', () => {
+    editToolbar.classList.toggle('open');
+});
+
+// スマホ画面で色や記号を選んだら、自動でツールバーを閉じる機能
+function closeToolbarOnMobile() {
+    if (window.innerWidth <= 768) {
+        editToolbar.classList.remove('open');
+    }
+}
