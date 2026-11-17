@@ -265,14 +265,26 @@ body {
 /* 小さい文字（半改行） */
 .small-text, font[size="1"] {
     font-size: 12px;
-    line-height: 0;
-    display: inline-block; /* ←追加：タグが重なった際の高さの暴走を防ぐ */
-    vertical-align: text-top; /* 上の基準線に合わせる */
+    line-height: 1.2; /* 0から変更して自然な高さを持たせる */
+    /* 不要になった inline-block と vertical-align は削除 */
 }
 
 /* 通常サイズの文字 */
 .normal-text, font[size="3"] {
     font-size: 16px;
+    line-height: 1.8;
+}
+
+/* ＝追加：小文字が含まれる行の無駄な空間を消す＝ */
+/* 行（div）の中に小文字がある場合、行自体の高さをギリギリまで詰める */
+.lyrics-editor div:has(font[size="1"]),
+.lyrics-editor div:has(.small-text) {
+    line-height: 1.1; 
+}
+
+/* ただし、同じ行に通常サイズの文字が混ざっている場合は、元の高さを優先する */
+.lyrics-editor div:has(font[size="3"]),
+.lyrics-editor div:has(.normal-text) {
     line-height: 1.8;
 }
 
@@ -305,3 +317,31 @@ body {
 .btn-primary { background: #1a73e8; color: white; }
 .btn-secondary { background: transparent; color: #5f6368; }
 .btn-danger { background: #d93025; color: white; }
+
+/* =======================================
+   スマホ操作時のキーボード対策（レスポンシブ）
+======================================= */
+@media (max-width: 768px) {
+    .modal-overlay {
+        align-items: flex-start; /* 画面の中央ではなく、一番上にくっつける */
+    }
+
+    .modal-content {
+        width: 100%;
+        height: 100%; /* 古いブラウザ用の予備 */
+        height: 100dvh; /* キーボードが出た時の「見えている画面」の高さに自動で合わせる */
+        max-height: 100dvh;
+        border-radius: 0; /* 角丸をなくして画面いっぱいに */
+        padding: 12px; 
+    }
+
+    .toolbar {
+        position: sticky;
+        top: 0; /* スクロールしてもツールバーが上部に貼り付くようにする */
+        z-index: 10;
+    }
+
+    .artist-input {
+        font-size: 16px; /* 補足: iPhoneでここをタップした際に、勝手に画面がズームされるのを防ぎます */
+    }
+}
