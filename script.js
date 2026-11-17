@@ -178,11 +178,17 @@ function openModal(note = null) {
         deleteBtn.style.display = 'none';
     }
     editorModal.classList.add('active');
+    
+    // ★ 追加：モーダルを開いたときに画面全体のスクロールを止める
+    document.body.classList.add('modal-open'); 
 }
 
 // モーダルを閉じる
 function closeModal() {
     editorModal.classList.remove('active');
+    
+    // ★ 追加：モーダルを閉じたらスクロールできるように戻す
+    document.body.classList.remove('modal-open'); 
 }
 
 // 歌詞を保存

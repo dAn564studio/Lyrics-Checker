@@ -319,3 +319,9 @@ body {
 .btn-secondary { background: transparent; color: #5f6368; }
 .btn-danger { background: #d93025; color: white; }
 
+/* =======================================
+   追加：モーダル表示時の背景スクロールロック
+======================================= */
+body.modal-open {
+    overflow: hidden;
+}
